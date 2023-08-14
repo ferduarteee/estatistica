@@ -36,6 +36,10 @@ def initial():
         st.header("Departamento Acadêmico de Estatística")
     with col2:
         st.image("https://www.utfpr.edu.br/icones/cabecalho/logo-utfpr/@@images/efcf9caf-6d29-4c24-8266-0b7366ea3a40.png", width = 200)
+    st.subheader('\n')
+    st.subheader('\n')
+    st.subheader('\n')
+    st.subheader("Essa página se dedica à demonstração de Data Apps didáticos orientados aos discentes de disciplinas do Departamento Acadêmico de Estatística da UTFPR")
         
 def show_page_1():
     st.title("Nível de Significância Estatística")
@@ -82,8 +86,8 @@ def show_page_3():
                 return ((math.factorial(N))/(math.factorial(n)*math.factorial(N - n)))
             except:
                 return 0
-        k = st.slider("", 0.0, 25.0)
-        N = 100
+        k = 25
+        N = st.slider("", 20, 100)
         n = 10
         x = 25
         lista = list()
@@ -93,17 +97,9 @@ def show_page_3():
             except:
                 fx = 0
             lista.append(fx)
-
-            #Gráfico
         fig = px.scatter(lista, width=900, height=500, title = 'Função de Densidade Hipergeométrica', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable':'Probabilidade'})
         fig.update_traces(marker={'color': 'green'})
         st.plotly_chart(fig, use_container_width=True)
-
-
-
-
-
-
 
 if __name__ == "__main__":
     main()
