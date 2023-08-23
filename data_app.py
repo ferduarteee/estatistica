@@ -11,12 +11,13 @@ from streamlit_option_menu import option_menu
 from hipothesis_test.statistical_significance import stats_sig
 from hipothesis_test.z_table import z_table_f
 from css_format import css
-
+from distributions.bernoulli import bern_dist
+from distributions.binomial import binom, binom_deg
 def main():
     with st.sidebar:
         page = option_menu("Menu Principal", ["Página Inicial", 'Distribuições','Significância Estatística', 'Tabela Z'], 
             icons=['house', 'gear'], menu_icon="cast", default_index=1)
-    if page== "Página Inicial":
+    if page == "Página Inicial":
         initial()
     elif page == "Significância Estatística":
         significance_page()
@@ -27,17 +28,26 @@ def main():
 
 def initial():
     css()
-    st.text("Programa desenvolvido por Fernando Duarte")
+    st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
     col1, col2= st.columns([40, 1])
     with col1:
         st.header("Departamento Acadêmico de Estatística")
     with col2:
         st.image("https://www.utfpr.edu.br/icones/cabecalho/logo-utfpr/@@images/efcf9caf-6d29-4c24-8266-0b7366ea3a40.png", width = 200)
-    st.subheader('\n')
-
+    st.write('\n')
     st.subheader("Essa página se dedica à demonstração de Data Apps didáticos orientados aos discentes de disciplinas do Departamento Acadêmico de Estatística da UTFPR")
+    st.header('\n')
+    st.header('\n')
+    st.header('\n')
+    col1, col2 = st.columns([3,1])
+    with col1:
+        st.image("https://www.mathwarehouse.com/animated-gifs/images/calculus/reinmann-sum-animation.gif", width = 400)
+    with col2: 
+        st.image("https://www.mathwarehouse.com/animated-gifs/images/pythagorean-theorem-sum-of-squares-demonstration-gif-2.gif", width = 300)
+
         
 def significance_page():
+    st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
     st.title("Nível de Significância Estatística")
     st.subheader("Selecione o valor de significância abaixo")
     nivel_de_significancia = st.slider("", 0.0, 1.0)
@@ -46,14 +56,19 @@ def significance_page():
 
 
 def z_table_page():
+    st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
     st.title("Tabela Z")
     table_z = z_table_f()
-    st.table(table_z)
+    st.dataframe(table_z, use_container_width=True, height=1125)
+
 
 def distributions_page():
+    st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
     page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial"], menu_icon="cast", default_index=2, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
         n = st.number_input("Insira um número de eventos entre 0 e 100:",min_value=1, max_value=100, key = 2)
         fig = udisc(n)
         st.plotly_chart(fig, use_container_width=True)
@@ -61,7 +76,25 @@ def distributions_page():
         if accumulation:
            fig = adisc(n)
            st.plotly_chart(fig, use_container_width=True)
-
+    if page == "Bernoulli":
+        st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
+        teta = st.slider("Insira um θ entre 0 e 1:", 0.0, 1.0)
+        fig = bern_dist(teta)
+        st.plotly_chart(fig, use_container_width=True)
+    if page == "Binomial":
+        st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
+        n = st.number_input("Insira um número de eventos entre 0 e 1000:",min_value=1, max_value=1000, key = 3)
+        teta = st.slider("Insira um θ entre 0 e 1:", 0.0, 1.0)
+        fig = binom(teta, n)
+        st.plotly_chart(fig, use_container_width=True)
+        accumulation = st.button("Função Acumulada de Probabilidade")
+        if accumulation:
+           fig = binom_deg(teta, n)
+           st.plotly_chart(fig, use_container_width=True)
 if __name__ == "__main__":
     main()
 

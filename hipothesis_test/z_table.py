@@ -25,4 +25,6 @@ def z_table_f():
     df = pd.DataFrame(z_table)
     df.index = index_search_v
     df.columns = index_search_h
+    df.columns.name = "Z"
+    df.index.name = "Z"
     return df
