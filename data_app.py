@@ -10,9 +10,11 @@ from distributions.uniform_discrete import udisc, adisc
 from streamlit_option_menu import option_menu
 from hipothesis_test.statistical_significance import stats_sig
 from hipothesis_test.z_table import z_table_f
+from distributions.hipergeometrical import hdist, accum_hdist
 from css_format import css
 from distributions.bernoulli import bern_dist
 from distributions.binomial import binom, binom_deg
+from distributions.poisson import dpoisson
 def main():
     with st.sidebar:
         page = option_menu("Menu Principal", ["Página Inicial", 'Distribuições','Significância Estatística', 'Tabela Z'], 
@@ -64,7 +66,7 @@ def z_table_page():
 
 def distributions_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial"], menu_icon="cast", default_index=2, orientation="horizontal")
+    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson"], menu_icon="cast", default_index=2, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
         st.write("\n")
@@ -95,6 +97,31 @@ def distributions_page():
         if accumulation:
            fig = binom_deg(teta, n)
            st.plotly_chart(fig, use_container_width=True)
+    if page == "Hipergeométrica":
+        st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
+        N = st.number_input("Insira um número de N entre 0 e 100:",min_value=1, max_value=100, key = 3)
+        n = st.number_input("Insira um número de n entre 0 e 10:",min_value=1, max_value=10, key = 4)
+        k = st.number_input("Insira um número de k entre 0 e 25:",min_value=1, max_value=25, key = 5)
+        i = st.number_input("Insira um número de i entre 0 e 25:",min_value=1, max_value=25, key = 6)
+        x = st.slider("Insira um número de eventos entre 0 e 100:", 0, 100)
+        fig = hdist(N, n, k, i, x)
+        st.plotly_chart(fig, use_container_width=True)
+        accumulation = st.button("Função Acumulada de Probabilidade")
+        if accumulation:
+           fig = accum_hdist(N, n, k, i, x)
+           st.plotly_chart(fig, use_container_width=True)
+    if page =="Poisson":
+        st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
+        N = st.number_input("Insira um número de N entre 0 e 100:",min_value=1, max_value=100, key = 5)
+        p = st.slider("Insira um valor de 0 a 1", 0.0, 1.0)
+        fig = dpoisson(N, p)
+        st.plotly_chart(fig, use_container_width=True)
+
+
 if __name__ == "__main__":
     main()
 
