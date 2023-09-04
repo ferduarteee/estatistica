@@ -15,6 +15,8 @@ from css_format import css
 from distributions.bernoulli import bern_dist
 from distributions.binomial import binom, binom_deg
 from distributions.poisson import dpoisson
+from distributions.bin_neg import bndist, ac_bndist
+
 def main():
     with st.sidebar:
         page = option_menu("Menu Principal", ["Página Inicial", 'Distribuições','Significância Estatística', 'Tabela Z'], 
@@ -66,7 +68,7 @@ def z_table_page():
 
 def distributions_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson"], menu_icon="cast", default_index=2, orientation="horizontal")
+    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa"], menu_icon="cast", default_index=2, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
         st.write("\n")
@@ -89,7 +91,7 @@ def distributions_page():
         st.title("Distribuições")
         st.write("\n")
         st.write("\n")
-        n = st.number_input("Insira um número de eventos entre 0 e 1000:",min_value=1, max_value=1000, key = 3)
+        n = st.slider("Insira um número de eventos entre 0 e 100:",min_value=1, max_value=100, key = 3)
         teta = st.slider("Insira um θ entre 0 e 1:", 0.0, 1.0)
         fig = binom(teta, n)
         st.plotly_chart(fig, use_container_width=True)
@@ -120,8 +122,19 @@ def distributions_page():
         p = st.slider("Insira um valor de 0 a 1", 0.0, 1.0)
         fig = dpoisson(N, p)
         st.plotly_chart(fig, use_container_width=True)
-
-
+    if page =="Binomial Negativa":
+        st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
+        x = st.slider("Insira um número de eventos entre 0 e 100:", 0, 100, key = 100)
+        r = st.number_input("Insira um r entre 0 e 20:", 0, 20, key = 101)
+        teta = st.slider("Insira um θ  entre 0 e 1:", 0.0, 1.0, key = 102)
+        fig = bndist(r, x, teta)
+        st.plotly_chart(fig, use_container_width=True)
+        accumulation = st.button("Função Acumulada de Probabilidade")
+        if accumulation:
+           fig = ac_bndist(r, x, teta)
+           st.plotly_chart(fig, use_container_width=True)
 if __name__ == "__main__":
     main()
 

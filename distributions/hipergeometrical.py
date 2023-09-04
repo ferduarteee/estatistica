@@ -10,7 +10,10 @@ def binomial(N, n):
 def hdist(N, n, k, i, x):
     lista = list()
     for i in range(x):
-        fx = (binomial(k, i) * binomial(N-k, n-i)) / binomial(N, n)
+        try:
+          fx = (binomial(k, i) * binomial(N-k, n-i)) / binomial(N, n)
+        except:
+          fx = 0
         lista.append(fx)
     fig = px.scatter(lista, width=900, height=500, title = 'Função de Densidade Hipergeométrica', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable':'Probabilidade'})
     fig.update_traces(marker={'color': 'green'})
