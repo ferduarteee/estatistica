@@ -68,7 +68,7 @@ def z_table_page():
 
 def distributions_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa"], menu_icon="cast", default_index=2, orientation="horizontal")
+    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa"], menu_icon="cast", default_index=0, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
         st.write("\n")
