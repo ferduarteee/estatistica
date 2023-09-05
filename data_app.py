@@ -19,8 +19,8 @@ from distributions.bin_neg import bndist, ac_bndist
 
 def main():
     with st.sidebar:
-        page = option_menu("Menu Principal", ["Página Inicial", 'Distribuições','Significância Estatística', 'Tabela Z'], 
-            icons=['house', 'gear'], menu_icon="cast", default_index=1)
+        page = option_menu("Menu Principal", ['Página Inicial', 'Distribuições','Significância Estatística', 'Tabela Z'], 
+            icons=['house', 'gear'], menu_icon="cast", default_index=0)
     if page == "Página Inicial":
         initial()
     elif page == "Significância Estatística":
