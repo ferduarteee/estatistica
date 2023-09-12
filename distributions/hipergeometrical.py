@@ -7,7 +7,7 @@ def binomial(N, n):
   except:
     return 0
 
-def hdist(N, n, k, i, x):
+def hdist(N, n, k, x):
     lista = list()
     for i in range(x):
         try:
