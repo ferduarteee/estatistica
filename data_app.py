@@ -19,7 +19,7 @@ from distributions.bin_neg import bndist, ac_bndist
 from distributions.norm_def import norm_pad, norm_pad_accum
 from distributions.gamma import func_gam, accum_gam
 from distributions.qui_quad import qui, qui_accum
-
+from distributions.fs import f
 
 
 def main():
@@ -73,7 +73,7 @@ def z_table_page():
 
 def distributions_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado"], menu_icon="cast", default_index=0, orientation="horizontal")
+    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado", "F-Snedecor"], menu_icon="cast", default_index=0, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
         st.write("\n")
@@ -145,8 +145,8 @@ def distributions_page():
         st.write("\n")
         st.write("\n")
         x = st.slider("Insira a quantidade N (máx 100):", 0, 100, key = 100)
-        mean = st.number_input("Insira uma média (máx 50)", 0, 50, key = 102)
-        devPad = st.number_input("Insira um desvio padrão (máx 10)", 0, 10, key = 103)
+        mean = st.number_input("Insira uma média (máx 50)", -50.0, 50.0, 0.01, key = 102)
+        devPad = st.number_input("Insira um desvio padrão (máx 10)",0 , 10, key = 103)
         fig = norm_pad(x, mean, devPad)
         st.plotly_chart(fig, use_container_width=True)
         accumulation = st.button("Função Acumulada de Probabilidade")
@@ -178,6 +178,19 @@ def distributions_page():
            fig = qui_accum(x, beta)
            st.plotly_chart(fig, use_container_width=True)   
 
+    if page == "F-Snedecor":
+        st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
+        x = st.slider("Insira a quantidade N (máx 100):", 0, 100)
+        v1 = st.number_input("Insira o valor de v1, (máx 100)", 0.0, 100.0)
+        v2 = st.number_input("Insira o valor de v2, (máx 100)", 0.0, 100.0)
+        fig = f(x, v1, v2)
+        st.plotly_chart(fig, use_container_width=True)
+        accumulation = st.button("Função Acumulada de Probabilidade")
+        if accumulation:
+           fig = qui_accum(x, beta)
+           st.plotly_chart(fig, use_container_width=True)   
 if __name__ == "__main__":
     main()
 
@@ -187,9 +200,6 @@ if __name__ == "__main__":
 
 #discrteta cotinua
 #normal
-#gamma
-#normal - padrão
-#quiquadrado
 #f-snedecor
 
 
