@@ -19,12 +19,12 @@ from distributions.bin_neg import bndist, ac_bndist
 from distributions.norm_def import norm_pad, norm_pad_accum
 from distributions.gamma import func_gam, accum_gam
 from distributions.qui_quad import qui, qui_accum
-from distributions.fs import f
-
+from distributions.fs import f, ac_f
+from distributions.gaussian import gaussian, ac_gaussian
 
 def main():
     with st.sidebar:
-        page = option_menu("Menu Principal", ['Página Inicial', 'Distribuições'],#,'Significância Estatística', 'Tabela Z'], 
+        page = option_menu("Menu Principal", ['Página Inicial', 'Distribuições', 'Tabela Z'],#,'Significância Estatística', 'Tabela Z'], 
             icons=['house', 'gear'], menu_icon="cast", default_index=0)
     if page == "Página Inicial":
         initial()
@@ -73,7 +73,7 @@ def z_table_page():
 
 def distributions_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado", "F-Snedecor"], menu_icon="cast", default_index=0, orientation="horizontal")
+    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado", "F-Snedecor", "Normal"], menu_icon="cast", default_index=0, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
         st.write("\n")
@@ -189,8 +189,23 @@ def distributions_page():
         st.plotly_chart(fig, use_container_width=True)
         accumulation = st.button("Função Acumulada de Probabilidade")
         if accumulation:
-           fig = qui_accum(x, beta)
-           st.plotly_chart(fig, use_container_width=True)   
+           fig = ac_f(x, v1, v2)
+           st.plotly_chart(fig, use_container_width=True)
+
+
+    if page == "Normal":
+        st.title("Distribuições")
+        st.write("\n")
+        st.write("\n")
+        x = st.slider("Insira a quantidade N (máx 100):", 0, 100)
+        mi = st.number_input("Insira o valor de μ, (máx 100)", 0.0, 100.0)
+        var = st.number_input("Insira o valor de σ, (máx 100)", 0.0, 100.0)
+        fig = gaussian(x, mi, var)
+        st.plotly_chart(fig, use_container_width=True)
+        accumulation = st.button("Função Acumulada de Probabilidade")
+        if accumulation:
+           fig = ac_gaussian(x, mi, var)
+           st.plotly_chart(fig, use_container_width=True)
 if __name__ == "__main__":
     main()
 
@@ -199,8 +214,7 @@ if __name__ == "__main__":
 
 
 #discrteta cotinua
-#normal
-#f-snedecor
+
 
 
 
