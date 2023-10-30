@@ -19,7 +19,7 @@ def hdist(N, n, k, x):
     fig.update_traces(marker={'color': 'green'})
     return fig 
 
-def accum_hdist(N, n, k, i, x):
+def accum_hdist(N, n, k, x):
     lista = list()
     fx = 0
     for i in range(x):

@@ -13,7 +13,7 @@ def qui(n, v):
         except:
             fx = 0 
             lista.append(fx)
-    fig = px.scatter(lista, width=800, height=500, title = 'Função de Probabilidade Qui-Quadrado', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable': 'Probabilidade'})
+    fig = px.line(lista, width=800, height=500, title = 'Função de Probabilidade Qui-Quadrado', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable': 'Probabilidade'}, line_shape="spline")
     fig.update_traces(marker={'color': 'green'})
     return fig
 

@@ -13,7 +13,7 @@ def f(n, d1, d2):
             r = 0
         results.append(r)
         
-    fig = px.line(results, width=900, height=500, title = 'Função de Probabilidade F-Snaedecor', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable':'Probabilidade'}, line_shape = "spline")
+    fig = px.line(results, width=900, height=500, title = 'Função de Probabilidade F-Snedecor', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable':'Probabilidade'}, line_shape = "spline")
     fig.update_traces(line_color='green')
     return fig 
 

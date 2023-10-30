@@ -73,7 +73,7 @@ def z_table_page():
 
 def distributions_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado", "F-Snedecor", "Normal"], menu_icon="cast", default_index=0, orientation="horizontal")
+    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado", "F-Snedecor", "Gaussiana"], menu_icon="cast", default_index=0, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
         st.write("\n")
@@ -117,7 +117,7 @@ def distributions_page():
         st.plotly_chart(fig, use_container_width=True)
         accumulation = st.button("Função Acumulada de Probabilidade")
         if accumulation:
-           fig = accum_hdist(N, n, k, i, x)
+           fig = accum_hdist(N, n, k, x)
            st.plotly_chart(fig, use_container_width=True)
     if page =="Poisson":
         st.title("Distribuições")
@@ -144,7 +144,7 @@ def distributions_page():
         st.title("Distribuições")
         st.write("\n")
         st.write("\n")
-        x = st.slider("Insira a quantidade N (máx 100):", 0, 100, key = 100)
+        x = st.slider("Insira a quantidade N (máx 100):",0, 100, key = 100)
         mean = st.number_input("Insira uma média (máx 50)", -50.0, 50.0, 0.01, key = 102)
         devPad = st.number_input("Insira um desvio padrão (máx 10)",0 , 10, key = 103)
         fig = norm_pad(x, mean, devPad)
@@ -193,7 +193,7 @@ def distributions_page():
            st.plotly_chart(fig, use_container_width=True)
 
 
-    if page == "Normal":
+    if page == "Gaussiana":
         st.title("Distribuições")
         st.write("\n")
         st.write("\n")
