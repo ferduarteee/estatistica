@@ -4,8 +4,7 @@ import plotly.express as px
 def binom(teta, n):
     values = list()
     a = 0
-
-    for i in range(1, n):
+    for i in range(n):
         a = ((math.factorial(n)) / (math.factorial(i) * math.factorial(n - i))) * (teta ** i) * ((1 - teta) ** (n - i))
         values.append(a)
 
@@ -21,7 +20,6 @@ def binom_deg(teta, n):
         a = a + ((math.factorial(n)) / (math.factorial(i) * math.factorial(n - i))) * (teta ** i) * ((1 - teta) ** (n - i))
         values.append(a)
 
-    #Gráfico
     fig = px.line(values, width=800, height=500, title = 'Função de Distribuição Binomial', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable': 'Probabilidade'}, line_shape ='hv')
     fig.update_traces(line_color='green')
     return fig

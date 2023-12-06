@@ -7,9 +7,9 @@ def binomial(N, n):
   except:
     return 0
 
-def hdist(N, n, k, x):
+def hdist(N, n, k):
     lista = list()
-    for i in range(x):
+    for i in range(N):
         try:
           fx = (binomial(k, i) * binomial(N-k, n-i)) / binomial(N, n)
         except:
@@ -19,10 +19,10 @@ def hdist(N, n, k, x):
     fig.update_traces(marker={'color': 'green'})
     return fig 
 
-def accum_hdist(N, n, k, x):
+def accum_hdist(N, n, k):
     lista = list()
     fx = 0
-    for i in range(x):
+    for i in range(N):
         fx = fx + (binomial(k, i) * binomial(N-k, n-i)) / binomial(N, n)
         lista.append(fx)
     fig = px.line(lista, width=900, height=500, title = 'Função de Distribuição Hipergeométrica', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable':'Probabilidade'}, line_shape='hv')
