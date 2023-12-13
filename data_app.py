@@ -1,15 +1,11 @@
 import streamlit as st 
-import plotly.express as px
-import pandas as pd 
-import math
-import plotly.express as px
-import numpy as np
-import plotly.graph_objects as go
-import scipy.stats as stats
 from distributions.uniform_discrete import udisc, adisc
 from streamlit_option_menu import option_menu
 from hipothesis_test.statistical_significance import stats_sig
 from hipothesis_test.z_table import z_table_f
+from hipothesis_test.t_student import t_table_f
+from hipothesis_test.qui_quad_table import q_table_f
+from hipothesis_test.f_table import f_table_f
 from distributions.hipergeometrical import hdist, accum_hdist
 from css_format import css
 from distributions.bernoulli import bern_dist
@@ -24,14 +20,20 @@ from distributions.gaussian import gaussian, ac_gaussian
 
 def main():
     with st.sidebar:
-        page = option_menu("Menu Principal", ['Página Inicial', 'Distribuições', 'Tabela Z'],#,'Significância Estatística', 'Tabela Z'], 
+        page = option_menu("Menu Principal", ['Página Inicial', 'Distribuições', 'Tabela Z-Score', 'Tabela t-Student', 'Tabela Qui-quadrado', "Tabela F-Snedecor"],#,'Significância Estatística', 'Tabela Z'], 
             icons=['house', 'gear'], menu_icon="cast", default_index=0)
     if page == "Página Inicial":
         initial()
     elif page == "Significância Estatística":
         significance_page()
-    elif page == "Tabela Z":
+    elif page == 'Tabela Z-Score':
         z_table_page()
+    elif page == 'Tabela t-Student':
+        t_table_page()
+    elif page == 'Tabela Qui-quadrado':
+        q_table_page()
+    elif page == 'Tabela F-Snedecor':
+        f_table_page()
     elif page == "Distribuições":
         distributions_page()
 
@@ -70,10 +72,28 @@ def z_table_page():
     table_z = z_table_f()
     st.dataframe(table_z, use_container_width=True, height=1125)
 
+def t_table_page():
+    st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
+    st.title("Tabela T")
+    table_t = t_table_f()
+    st.table(table_t)
+
+def q_table_page():
+    st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
+    st.title("Tabela Qui-quadrado")
+    table_q = q_table_f()
+    st.table(table_q)
+
+def f_table_page():
+    st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
+    st.title("Tabela Qui-quadrado")
+    st.text("")
+    table_f = f_table_f(0.95)
+    st.table(table_f)
 
 def distributions_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado", "F-Snedecor", "Gaussiana"], menu_icon="cast", default_index=0, orientation="horizontal")
+    page = option_menu("Distribuições", ["Uniforme Discreta", "Bernoulli", "Binomial", "Hipergeométrica", "Poisson", "Binomial Negativa", "Normal Padrão", "Gamma", "Qui-quadrado", "F-Snedecor"], menu_icon="cast", default_index=0, orientation="horizontal")
     if page == "Uniforme Discreta":
         st.title("Distribuições")
         st.write("\n")
@@ -157,8 +177,9 @@ def distributions_page():
         st.write("\n")
         st.write("\n")
         x = st.slider("Insira a quantidade N (máx 100):", 0, 100)
+        alfa = st.slider("Insira o valor de α, (máx 1)", 0.0, 1.0)
         beta = st.slider("Insira o valor de β, (máx 1)", 0.0, 1.0)
-        fig = func_gam(x, beta)
+        fig = func_gam(x, alfa, beta)
         st.plotly_chart(fig, use_container_width=True)
         accumulation = st.button("Função Acumulada de Probabilidade")
         if accumulation:
@@ -212,7 +233,6 @@ if __name__ == "__main__":
 
 
 
-#discrteta cotinua
 
 
 

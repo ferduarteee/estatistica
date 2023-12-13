@@ -7,7 +7,11 @@ def norm_pad(mean, devPad):
     if mean > 0:
         x = np.arange((mean - (2 * mean)), (mean + (2 * mean)), 0.01)
     elif mean < 0:
-        x = np.arange((mean + (2 * mean)), (mean - (2 * mean)), 0.01)        
+        x = np.arange((mean + (2 * mean)), (mean - (2 * mean)), 0.01)
+    else:
+        x = np.arange(-40, 40, 0.01)                
+
+
     media = mean      # média
     var   = (devPad ** 2)       # variância
     dp    = np.sqrt(var) # desvio padrão 
@@ -21,7 +25,9 @@ def norm_pad_accum( mean, devPad):
     if mean > 0:
         x = np.arange((mean - (2 * mean)), (mean + (2 * mean)), 0.01)
     elif mean < 0:
-        x = np.arange((mean + (2 * mean)), (mean - (2 * mean)), 0.01)        
+        x = np.arange((mean + (2 * mean)), (mean - (2 * mean)), 0.01)
+    else:
+        x = np.arange(-40, 40, 0.01)                       
     media = mean      # média
     var   = (devPad ** 2)       # variância
     dp    = np.sqrt(var) # desvio padrão 
@@ -29,7 +35,7 @@ def norm_pad_accum( mean, devPad):
     dx  = norm.pdf(x, loc=media, scale=np.sqrt(var))
     soma = 0
     y=[]
-    
+
     for i in dx:
         soma+=i
         y.append(soma)

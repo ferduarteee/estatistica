@@ -3,11 +3,11 @@ from math import gamma, e
 
 
 
-def func_gam(n, beta):
-    alfa  = n / 2 
+def func_gam(n, beta, alfa):
     eq = []
     for i in range(n):
         eq.append(((beta ** 2)/gamma(alfa)) * i **(alfa-1) * e ** (- beta * i))
+        
     fig = px.line(eq, width=900, height=500, title = 'Função de Probabilidade Gamma', labels={'value': 'Probabilidade', 'index':'Eventos', 'variable':'Probabilidade'}, line_shape="spline")
     fig.update_traces(line_color='green')
     return fig 
