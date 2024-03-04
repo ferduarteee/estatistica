@@ -74,7 +74,7 @@ def z_table_page():
 
 def t_table_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    st.title("Tabela T")
+    st.title("Tabela T-Student")
     table_t = t_table_f()
     st.table(table_t)
 
@@ -86,7 +86,7 @@ def q_table_page():
 
 def f_table_page():
     st.write("Programa desenvolvido por Fernando Duarte no projeto Edital nº 69/2022")
-    st.title("Tabela Qui-quadrado")
+    st.title("Tabela F-Snaedecor")
     st.text("")
     table_f = f_table_f(0.95)
     st.table(table_f)
